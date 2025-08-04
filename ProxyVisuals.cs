@@ -11,11 +11,12 @@ public class ProxyVisuals : ResoniteMod
 {
   public override string Name => "Proxy Visuals";
   public override string Author => "LeCloutPanda";
-  public override string Version => "1.0.0";
+  public override string Version => "1.0.1";
 
   [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> ENABLED = new ModConfigurationKey<bool>("Enabled", "", () => false);
   [AutoRegisterConfigKey] private static readonly ModConfigurationKey<float> SIZE = new ModConfigurationKey<float>("Size multiplier", "", () => 1.0f);
   [AutoRegisterConfigKey] private static readonly ModConfigurationKey<colorX> BACKGROUNDCOLOR = new ModConfigurationKey<colorX>("Background Color", "", () => RadiantUI_Constants.Neutrals.DARK);
+  [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> DISABLE_BACKGROUND = new ModConfigurationKey<bool>("Disable Background", "", () => false);
   private static ModConfiguration config;
 
   public override void OnEngineInit()
@@ -26,7 +27,7 @@ public class ProxyVisuals : ResoniteMod
   }
 
   [HarmonyPatch]
-  private static class ReferenceProxyPatch
+  private static class InspectorHelperPatch
   {
     [HarmonyPatch(typeof(InspectorHelper), nameof(InspectorHelper.SetupProxyVisual))]
     [HarmonyPostfix]
@@ -40,7 +41,18 @@ public class ProxyVisuals : ResoniteMod
       try
       {
         slot.LocalScale = slot.LocalScale * config.GetValue(SIZE);
-        slot[0].GetComponentInChildren<Image>().Tint.Value = config.GetValue(BACKGROUNDCOLOR);
+        if (config.GetValue(DISABLE_BACKGROUND))
+        {
+          slot[0].GetComponentInChildren<Image>().Enabled = false;
+          Text text = slot[0].GetComponentInChildren<Text>();
+          UI_TextUnlitMaterial material = text.Slot.AttachComponent<UI_TextUnlitMaterial>();
+          material.ZWrite.Value = ZWrite.On;
+          text.Materials[0] = material;
+        }
+        else
+        {
+          slot[0].GetComponentInChildren<Image>().Tint.Value = config.GetValue(BACKGROUNDCOLOR);
+        }
       }
       catch (Exception ex)
       {
