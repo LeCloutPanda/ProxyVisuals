@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>ProxyVisuals</RootNamespace>
+    <AssemblyName>ProxyVisuals</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFramework>net472</TargetFramework>
+    <FileAlignment>512</FileAlignment>
+    <LangVersion>10.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GamePath)'==''">
+		<GamePath>$(MSBuildThisFileDirectory)Resonite</GamePath>
+		<GamePath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite\')">C:\Program Files (x86)\Steam\steamapps\common\Resonite\</GamePath>
+		<GamePath Condition="Exists('$(HOME)/.steam/steam/steamapps/common/Resonite/')">$(HOME)/.steam/steam/steamapps/common/Resonite/</GamePath>
+		<GamePath Condition="Exists('E:\Programs\Steam\steamapps\common\Resonite')">E:\Programs\Steam\steamapps\common\Resonite\</GamePath>
+		<GamePath Condition="Exists('E:\Games\Steam\steamapps\common\Resonite')">E:\Games\Steam\steamapps\common\Resonite\</GamePath>
+		<GamePath Condition="Exists('D:\Games\SteamLibrary\steamapps\common\Resonite')">D:\Games\SteamLibrary\steamapps\common\Resonite\</GamePath>
+		<GamePath Condition="Exists('D:\SteamLibrary\steamapps\common\Resonite')">D:\SteamLibrary\steamapps\common\Resonite\</GamePath>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Reference Include="HarmonyLib">
+      <HintPath Condition="Exists('$(GamePath)rml_libs\0Harmony.dll')">$(GamePath)rml_libs\0Harmony.dll</HintPath>
+      <HintPath Condition="Exists('$(GamePath)0Harmony.dll')">$(GamePath)0Harmony.dll</HintPath>
+      <HintPath Condition="Exists('$(GamePath)Libraries\0Harmony.dll')">$(GamePath)Libraries\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ResoniteModLoader">
+      <HintPath>$(GamePath)ResoniteModLoader.dll</HintPath>
+      <HintPath>$(GamePath)Libraries\ResoniteModLoader.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Elements.Core">
+      <HintPath>$(GamePath)Resonite_Data\Managed\Elements.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FrooxEngine">
+      <HintPath>$(GamePath)Resonite_Data\Managed\FrooxEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Message Text="Attempting to copy $(TargetFileName) to $(GamePath)rml_mods" Importance="high" />
+    <Copy SourceFiles="$(TargetDir)$(TargetFileName)" DestinationFolder="$(GamePath)rml_mods" ContinueOnError="true" />
+  </Target>
+</Project>
