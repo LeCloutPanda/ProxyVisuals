@@ -17,6 +17,7 @@ public class ProxyVisuals : ResoniteMod
   [AutoRegisterConfigKey] private static readonly ModConfigurationKey<float> SIZE = new ModConfigurationKey<float>("Size multiplier", "", () => 1.0f);
   [AutoRegisterConfigKey] private static readonly ModConfigurationKey<colorX> BACKGROUNDCOLOR = new ModConfigurationKey<colorX>("Background Color", "", () => RadiantUI_Constants.Neutrals.DARK);
   [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> DISABLE_BACKGROUND = new ModConfigurationKey<bool>("Disable Background", "", () => false);
+  [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> DiSABLE_FAILSAFE = new ModConfigurationKey<bool>("Disable Error Handling", "", () => true);
   private static ModConfiguration config;
 
   public override void OnEngineInit()
@@ -57,6 +58,7 @@ public class ProxyVisuals : ResoniteMod
       catch (Exception ex)
       {
         Error(ex);
+        if (!config.GetValue(DiSABLE_FAILSAFE)) return;
         config.Set(ENABLED, false);
         Msg("Disabling mod to prevent further issues.");
       }
