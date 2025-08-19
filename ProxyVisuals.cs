@@ -11,7 +11,7 @@ public class ProxyVisuals : ResoniteMod
 {
   public override string Name => "Proxy Visuals";
   public override string Author => "LeCloutPanda";
-  public override string Version => "1.0.1";
+  public override string Version => "1.0.2";
 
   [AutoRegisterConfigKey] private static readonly ModConfigurationKey<bool> ENABLED = new ModConfigurationKey<bool>("Enabled", "", () => false);
   [AutoRegisterConfigKey] private static readonly ModConfigurationKey<float> SIZE = new ModConfigurationKey<float>("Size multiplier", "", () => 1.0f);

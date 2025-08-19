@@ -3,11 +3,7 @@
     <RootNamespace>ProxyVisuals</RootNamespace>
     <AssemblyName>ProxyVisuals</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <TargetFramework>net472</TargetFramework>
-    <FileAlignment>512</FileAlignment>
-    <LangVersion>10.0</LangVersion>
-    <Nullable>disable</Nullable>
-    <Deterministic>true</Deterministic>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GamePath)'==''">
@@ -22,23 +18,18 @@
   
   <ItemGroup>
     <Reference Include="HarmonyLib">
-      <HintPath Condition="Exists('$(GamePath)rml_libs\0Harmony.dll')">$(GamePath)rml_libs\0Harmony.dll</HintPath>
-      <HintPath Condition="Exists('$(GamePath)0Harmony.dll')">$(GamePath)0Harmony.dll</HintPath>
-      <HintPath Condition="Exists('$(GamePath)Libraries\0Harmony.dll')">$(GamePath)Libraries\0Harmony.dll</HintPath>
-      <Private>False</Private>
+      <HintPath Condition="Exists('$(GamePath)0Harmony.dll')">$(GamePath)0Harmony-Net9.dll</HintPath>
+      <HintPath>$(GamePath)rml_libs\0Harmony-Net9.dll</HintPath>
     </Reference>
     <Reference Include="ResoniteModLoader">
       <HintPath>$(GamePath)ResoniteModLoader.dll</HintPath>
       <HintPath>$(GamePath)Libraries\ResoniteModLoader.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="Elements.Core">
-      <HintPath>$(GamePath)Resonite_Data\Managed\Elements.Core.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>$(GamePath)Elements.Core.dll</HintPath>
     </Reference>
     <Reference Include="FrooxEngine">
-      <HintPath>$(GamePath)Resonite_Data\Managed\FrooxEngine.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>$(GamePath)FrooxEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
 
