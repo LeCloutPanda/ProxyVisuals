@@ -1,4 +1,4 @@
-# Context Menu Funnies
+# Proxy Visuals
 [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader) mod for [Resonite](https://resonite.com/) that changes how a ValueProxy/ReferenceProxy are displayed.
 
 # Installation
