@@ -18,8 +18,9 @@
   
   <ItemGroup>
     <Reference Include="HarmonyLib">
-      <HintPath Condition="Exists('$(GamePath)0Harmony.dll')">$(GamePath)0Harmony-Net9.dll</HintPath>
-      <HintPath>$(GamePath)rml_libs\0Harmony-Net9.dll</HintPath>
+      <HintPath Condition="Exists('$(GamePath)0Harmony.dll')">$(GamePath)0Harmony.dll</HintPath>
+      <HintPath>$(GamePath)rml_libs\0Harmony.dll</HintPath>
+      <HintPath>$(GamePath)Libraries\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="ResoniteModLoader">
       <HintPath>$(GamePath)ResoniteModLoader.dll</HintPath>
